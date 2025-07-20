@@ -15,7 +15,7 @@ class ImageCompressor:
     def __init__(self, quality=80, replace_originals=False):
         self.quality = quality
         self.replace_originals = replace_originals
-        self.supported_formats = {'.jpg', '.jpeg', '.png', '.bmp', '.tiff', '.tif'}
+        self.supported_formats = {'.webp', '.jpeg', '.png', '.bmp', '.tiff', '.tif'}
         self.processed_count = 0
         self.total_original_size = 0
         self.total_compressed_size = 0
