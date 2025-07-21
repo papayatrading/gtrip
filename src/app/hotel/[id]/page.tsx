@@ -1,7 +1,9 @@
 "use client";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { BusinessListingResponse } from "@/types/businessListing";
+import { businessListingService } from "@/services/businessListingService";
 
 interface HotelDetailsProps {
   params: Promise<{
@@ -9,489 +11,448 @@ interface HotelDetailsProps {
   }>;
 }
 
-const HotelDetails: React.FC<HotelDetailsProps> = async ({ params }) => {
-  const resolvedParams = await params;
-  const hotels = [
-    {
-      id: 1,
-      name: "Grand Palace Hotel Paris",
-      location: "Paris, France",
-      image: "/hotels/beautiful-luxury-outdoor-swimming-pool-hotel-resort.webp",
-      price: 245,
-      originalPrice: 320,
-      rating: 4.8,
-      reviews: 1247,
-      amenities: [
-        "Free WiFi",
-        "Pool",
-        "Spa",
-        "Restaurant",
-        "Room Service",
-        "Concierge",
-        "Parking",
-        "Gym",
-      ],
-      description:
-        "Luxury hotel in the heart of Paris with stunning city views. Experience the epitome of French elegance and sophistication in our beautifully appointed rooms and suites.",
-      fullDescription:
-        "The Grand Palace Hotel Paris stands as a beacon of luxury in the City of Light. Our hotel combines classic French architecture with modern amenities to create an unforgettable experience. Each room features marble bathrooms, premium linens, and breathtaking views of the Parisian skyline. Our world-class spa offers rejuvenating treatments, while our Michelin-starred restaurant serves exquisite French cuisine.",
-      address: "123 Champs-Élysées, 75008 Paris, France",
-      checkIn: "3:00 PM",
-      checkOut: "12:00 PM",
-      policies: [
-        "Free cancellation up to 24 hours before check-in",
-        "Pets allowed with additional fee",
-        "Non-smoking rooms available",
-      ],
-    },
-    {
-      id: 2,
-      name: "Tokyo Bay Resort",
-      location: "Tokyo, Japan",
-      image: "/hotels/rooftop-pool-showcasing-panoramic-views.webp",
-      price: 189,
-      originalPrice: 250,
-      rating: 4.7,
-      reviews: 892,
-      amenities: [
-        "Free WiFi",
-        "Gym",
-        "Business Center",
-        "Bar",
-        "Restaurant",
-        "Spa",
-        "Pool",
-        "Concierge",
-      ],
-      description: "Modern hotel with panoramic views of Tokyo Bay",
-      fullDescription:
-        "Tokyo Bay Resort offers a perfect blend of Japanese hospitality and modern luxury. Located in the heart of Tokyo with stunning bay views, our hotel provides easy access to the city's business and entertainment districts. Experience traditional Japanese service with contemporary amenities.",
-      address: "456 Bay Street, Minato City, Tokyo 105-0000, Japan",
-      checkIn: "3:00 PM",
-      checkOut: "11:00 AM",
-      policies: [
-        "Free cancellation up to 48 hours before check-in",
-        "No pets allowed",
-        "Smoking rooms available on request",
-      ],
-    },
-    {
-      id: 3,
-      name: "Manhattan Plaza Hotel",
-      location: "New York, USA",
-      image:
-        "/hotels/detailed-view-hotels-restaurant-with-fine-dining-setups-service.webp",
-      price: 298,
-      originalPrice: 380,
-      rating: 4.6,
-      reviews: 2156,
-      amenities: [
-        "Free WiFi",
-        "Concierge",
-        "Restaurant",
-        "Valet",
-        "Gym",
-        "Business Center",
-        "Room Service",
-        "Bar",
-      ],
-      description: "Iconic hotel in the heart of Manhattan",
-      fullDescription:
-        "Manhattan Plaza Hotel embodies the energy and sophistication of New York City. Located in the heart of Manhattan, our hotel offers unparalleled access to Broadway shows, world-class shopping, and fine dining. Each room is designed with modern amenities and classic New York style.",
-      address: "789 Broadway, New York, NY 10003, USA",
-      checkIn: "4:00 PM",
-      checkOut: "12:00 PM",
-      policies: [
-        "Free cancellation up to 24 hours before check-in",
-        "Pets allowed with restrictions",
-        "All rooms are non-smoking",
-      ],
-    },
-    {
-      id: 4,
-      name: "London Bridge Suites",
-      location: "London, UK",
-      image:
-        "/hotels/popular-resort-amara-dolce-vita-luxury-hotel-with-pools-water-parks-recreational-area-along-sea-coast-turkey-sunset-tekirova-kemer.webp",
-      price: 210,
-      originalPrice: 275,
-      rating: 4.7,
-      reviews: 1598,
-      amenities: [
-        "Free WiFi",
-        "Tea Service",
-        "Gym",
-        "Restaurant",
-        "Concierge",
-        "Business Center",
-        "Room Service",
-        "Bar",
-      ],
-      description: "Elegant suites near London's famous landmarks",
-      fullDescription:
-        "London Bridge Suites offers sophisticated accommodations in one of London's most historic areas. Our elegant suites provide stunning views of the Thames and Tower Bridge. Enjoy traditional British hospitality with modern amenities and easy access to London's top attractions.",
-      address: "321 London Bridge Street, London SE1 9SG, UK",
-      checkIn: "3:00 PM",
-      checkOut: "11:00 AM",
-      policies: [
-        "Free cancellation up to 24 hours before check-in",
-        "Pets allowed in designated rooms",
-        "Non-smoking property",
-      ],
-    },
-    {
-      id: 5,
-      name: "Barcelona Beach Resort",
-      location: "Barcelona, Spain",
-      image: "/hotels/rear-view-man-standing-sea-against-sky.webp",
-      price: 156,
-      originalPrice: 195,
-      rating: 4.8,
-      reviews: 967,
-      amenities: [
-        "Free WiFi",
-        "Beach Access",
-        "Pool",
-        "Spa",
-        "Restaurant",
-        "Bar",
-        "Water Sports",
-        "Tennis",
-      ],
-      description: "Beachfront resort with Mediterranean charm",
-      fullDescription:
-        "Barcelona Beach Resort combines the vibrant culture of Barcelona with the relaxation of a beachfront getaway. Our resort offers direct beach access, multiple pools, and authentic Mediterranean cuisine. Experience the perfect blend of city excitement and seaside tranquility.",
-      address: "654 Barceloneta Beach, 08003 Barcelona, Spain",
-      checkIn: "3:00 PM",
-      checkOut: "12:00 PM",
-      policies: [
-        "Free cancellation up to 48 hours before check-in",
-        "Pets not allowed",
-        "All rooms are non-smoking",
-      ],
-    },
-    {
-      id: 6,
-      name: "Bali Tropical Villa",
-      location: "Bali, Indonesia",
-      image: "/hotels/beautiful-luxury-outdoor-swimming-pool-hotel-resort.webp",
-      price: 89,
-      originalPrice: 120,
-      rating: 4.9,
-      reviews: 743,
-      amenities: [
-        "Free WiFi",
-        "Pool",
-        "Spa",
-        "Garden",
-        "Restaurant",
-        "Yoga Studio",
-        "Bicycle Rental",
-        "Airport Shuttle",
-      ],
-      description: "Peaceful villa surrounded by tropical gardens",
-      fullDescription:
-        "Bali Tropical Villa offers an authentic Balinese experience in a serene tropical setting. Surrounded by lush gardens and rice paddies, our villa provides a peaceful retreat with traditional Balinese architecture and modern comforts. Enjoy daily yoga sessions and traditional spa treatments.",
-      address: "987 Ubud Road, Ubud, Bali 80571, Indonesia",
-      checkIn: "2:00 PM",
-      checkOut: "12:00 PM",
-      policies: [
-        "Free cancellation up to 72 hours before check-in",
-        "Pets not allowed",
-        "Outdoor spaces only for smoking",
-      ],
-    },
-  ];
+const HotelDetails: React.FC<HotelDetailsProps> = ({ params }) => {
+  const [hotel, setHotel] = useState<BusinessListingResponse | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+  const [resolvedParams, setResolvedParams] = useState<{ id: string } | null>(null);
 
-  const hotelId = parseInt(resolvedParams.id);
-  const hotel = hotels.find((h) => h.id === hotelId);
+  useEffect(() => {
+    params.then(setResolvedParams);
+  }, [params]);
 
-  if (!hotel) {
+  useEffect(() => {
+    if (resolvedParams?.id) {
+      fetchHotel(resolvedParams.id);
+    }
+  }, [resolvedParams]);
+
+  const fetchHotel = async (id: string) => {
+    setLoading(true);
+    setError(null);
+    
+    try {
+      const response = await businessListingService.getListingById(id);
+      
+      if (response.success && response.data) {
+        setHotel(response.data);
+      } else {
+        setError(response.error || 'Failed to fetch hotel details');
+      }
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Failed to fetch hotel details');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // Helper functions
+  const parseAmenities = (amenities: any): string[] => {
+    if (Array.isArray(amenities)) return amenities;
+    if (typeof amenities === "string") {
+      try {
+        const parsed = JSON.parse(amenities);
+        return Array.isArray(parsed) ? parsed : [];
+      } catch {
+        return [];
+      }
+    }
+    return [];
+  };
+
+  const parsePolicies = (policies: any) => {
+    if (typeof policies === "string") {
+      try {
+        return JSON.parse(policies);
+      } catch {
+        return {};
+      }
+    }
+    return policies || {};
+  };
+
+  const getPrimaryImage = (listing: BusinessListingResponse): string => {
+    if (listing.images && Array.isArray(listing.images) && listing.images.length > 0) {
+      return listing.images[0];
+    }
+    return "/hotels/beautiful-luxury-outdoor-swimming-pool-hotel-resort.webp";
+  };
+
+  const formatPriceRange = (priceRange?: string): { price: number; originalPrice: number } => {
+    if (!priceRange) return { price: 150, originalPrice: 200 };
+
+    if (priceRange.match(/^\$+$/)) {
+      const dollarCount = priceRange.length;
+      switch (dollarCount) {
+        case 1: return { price: 50, originalPrice: 80 };
+        case 2: return { price: 100, originalPrice: 150 };
+        case 3: return { price: 200, originalPrice: 280 };
+        case 4: return { price: 400, originalPrice: 550 };
+        default: return { price: 150, originalPrice: 200 };
+      }
+    }
+
+    const matches = priceRange.match(/\$?(\d+).*\$?(\d+)?/);
+    if (matches) {
+      const price = parseInt(matches[1]);
+      const originalPrice = matches[2] ? parseInt(matches[2]) : Math.round(price * 1.3);
+      return { price, originalPrice };
+    }
+
+    return { price: 150, originalPrice: 200 };
+  };
+
+  if (loading) {
+    return (
+      <>
+        <style jsx>{`
+          @keyframes spin {
+            0% {
+              transform: rotate(0deg);
+            }
+            100% {
+              transform: rotate(360deg);
+            }
+          }
+        `}</style>
+        <div style={{ backgroundColor: "#f8f9fa", minHeight: "100vh" }}>
+          <div style={{ textAlign: "center", padding: "4rem 2rem" }}>
+            <div style={{ display: "flex", justifyContent: "center", alignItems: "center", gap: "1rem" }}>
+              <div
+                style={{
+                  width: "20px",
+                  height: "20px",
+                  border: "2px solid #e0e0e0",
+                  borderTop: "2px solid #0d9488",
+                  borderRadius: "50%",
+                  animation: "spin 1s linear infinite",
+                }}
+              />
+              <span style={{ color: "#666", fontSize: "1.1rem" }}>Loading hotel details...</span>
+            </div>
+          </div>
+        </div>
+      </>
+    );
+  }
+
+  if (error || !hotel) {
     return (
       <div style={{ backgroundColor: "#f8f9fa", minHeight: "100vh" }}>
         <div style={{ textAlign: "center", padding: "4rem 2rem" }}>
           <h1 style={{ color: "#333", fontSize: "2rem", marginBottom: "1rem" }}>
-            Hotel Not Found
+            {error ? "Error Loading Hotel" : "Hotel Not Found"}
           </h1>
+          {error && (
+            <p style={{ color: "#e74c3c", marginBottom: "1rem" }}>{error}</p>
+          )}
           <Link
-            href="/"
+            href="/hotel"
             style={{
-              color: "#FF385C",
+              color: "#0d9488",
               textDecoration: "none",
               fontSize: "1.1rem",
             }}
           >
-            ← Back to Home
+            ← Back to Hotels
           </Link>
         </div>
       </div>
     );
   }
 
+  const amenities = parseAmenities(hotel.amenities);
+  const policies = parsePolicies(hotel.policies);
+  const { price, originalPrice } = formatPriceRange(hotel.priceRange);
+
   return (
-    <div style={{ backgroundColor: "#f8f9fa", minHeight: "100vh" }}>
-      <div style={{ maxWidth: "1200px", margin: "0 auto", padding: "2rem" }}>
-        <Link
-          href="/"
-          style={{
-            color: "#FF385C",
-            textDecoration: "none",
-            fontSize: "1rem",
-            marginBottom: "2rem",
-            display: "inline-block",
-          }}
-        >
-          ← Back to Hotels
-        </Link>
+    <>
+      <style jsx>{`
+        @keyframes spin {
+          0% {
+            transform: rotate(0deg);
+          }
+          100% {
+            transform: rotate(360deg);
+          }
+        }
+      `}</style>
+      <div style={{ backgroundColor: "#f8f9fa", minHeight: "100vh" }}>
+        <div style={{ maxWidth: "1200px", margin: "0 auto", padding: "2rem" }}>
+          <Link
+            href="/hotel"
+            style={{
+              color: "#0d9488",
+              textDecoration: "none",
+              fontSize: "1rem",
+              marginBottom: "2rem",
+              display: "inline-block",
+            }}
+          >
+            ← Back to Hotels
+          </Link>
 
-        <div
-          style={{
-            background: "#fff",
-            borderRadius: "12px",
-            overflow: "hidden",
-            boxShadow: "0 8px 32px rgba(0,0,0,0.1)",
-            marginBottom: "2rem",
-          }}
-        >
-          <div style={{ position: "relative", height: "400px" }}>
-            <Image
-              src={hotel.image}
-              alt={hotel.name}
-              fill
-              style={{ objectFit: "cover" }}
-            />
-            <div
-              style={{
-                position: "absolute",
-                top: "2rem",
-                right: "2rem",
-                background: "#FF385C",
-                color: "#fff",
-                padding: "1rem 1.5rem",
-                borderRadius: "25px",
-                fontSize: "1.1rem",
-                fontWeight: "600",
-              }}
-            >
-              ★ {hotel.rating} ({hotel.reviews} reviews)
-            </div>
-          </div>
-
-          <div style={{ padding: "2rem" }}>
-            <div style={{ marginBottom: "2rem" }}>
-              <h1
-                style={{
-                  fontSize: "2.5rem",
-                  fontWeight: "700",
-                  color: "#333",
-                  marginBottom: "0.5rem",
-                }}
-              >
-                {hotel.name}
-              </h1>
-              <p
-                style={{
-                  color: "#666",
-                  fontSize: "1.2rem",
-                  marginBottom: "1rem",
-                }}
-              >
-                📍 {hotel.address}
-              </p>
-
+          <div
+            style={{
+              background: "#fff",
+              borderRadius: "12px",
+              overflow: "hidden",
+              boxShadow: "0 8px 32px rgba(0,0,0,0.1)",
+              marginBottom: "2rem",
+            }}
+          >
+            <div style={{ position: "relative", height: "400px" }}>
+              <Image
+                src={getPrimaryImage(hotel)}
+                alt={hotel.title}
+                fill
+                style={{ objectFit: "cover" }}
+              />
               <div
                 style={{
-                  display: "flex",
-                  alignItems: "baseline",
-                  gap: "1rem",
-                  marginBottom: "2rem",
+                  position: "absolute",
+                  top: "2rem",
+                  right: "2rem",
+                  background: "#0d9488",
+                  color: "#fff",
+                  padding: "1rem 1.5rem",
+                  borderRadius: "25px",
+                  fontSize: "1.1rem",
+                  fontWeight: "600",
                 }}
               >
-                <span
+                ★ {hotel.rating ? hotel.rating.toFixed(1) : "4.5"} ({hotel.reviewCount || 0} reviews)
+              </div>
+            </div>
+
+            <div style={{ padding: "2rem" }}>
+              <div style={{ marginBottom: "2rem" }}>
+                <h1
                   style={{
                     fontSize: "2.5rem",
                     fontWeight: "700",
-                    color: "#FF385C",
-                  }}
-                >
-                  ${hotel.price}
-                </span>
-                <span
-                  style={{
-                    fontSize: "1.5rem",
-                    color: "#999",
-                    textDecoration: "line-through",
-                  }}
-                >
-                  ${hotel.originalPrice}
-                </span>
-                <span
-                  style={{
-                    fontSize: "1.2rem",
-                    color: "#666",
-                  }}
-                >
-                  per night
-                </span>
-              </div>
-            </div>
-
-            <div
-              style={{
-                display: "grid",
-                gridTemplateColumns: "2fr 1fr",
-                gap: "3rem",
-              }}
-            >
-              <div>
-                <h3
-                  style={{
-                    fontSize: "1.5rem",
-                    fontWeight: "600",
                     color: "#333",
-                    marginBottom: "1rem",
+                    marginBottom: "0.5rem",
                   }}
                 >
-                  About This Hotel
-                </h3>
+                  {hotel.title}
+                </h1>
                 <p
                   style={{
                     color: "#666",
-                    fontSize: "1.1rem",
-                    lineHeight: "1.6",
-                    marginBottom: "2rem",
+                    fontSize: "1.2rem",
+                    marginBottom: "1rem",
                   }}
                 >
-                  {hotel.fullDescription}
+                  📍 {hotel.address}, {hotel.city}, {hotel.country}
                 </p>
 
-                <h3
-                  style={{
-                    fontSize: "1.5rem",
-                    fontWeight: "600",
-                    color: "#333",
-                    marginBottom: "1rem",
-                  }}
-                >
-                  Amenities
-                </h3>
                 <div
                   style={{
-                    display: "grid",
-                    gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))",
-                    gap: "0.5rem",
+                    display: "flex",
+                    alignItems: "baseline",
+                    gap: "1rem",
                     marginBottom: "2rem",
                   }}
                 >
-                  {hotel.amenities.map((amenity, index) => (
-                    <div
-                      key={index}
+                  <span
+                    style={{
+                      fontSize: "2.5rem",
+                      fontWeight: "700",
+                      color: "#0d9488",
+                    }}
+                  >
+                    ${price}
+                  </span>
+                  {originalPrice > price && (
+                    <span
                       style={{
-                        background: "#f8f9fa",
-                        color: "#333",
-                        padding: "0.7rem 1rem",
-                        borderRadius: "8px",
-                        fontSize: "1rem",
-                        border: "1px solid #e9ecef",
+                        fontSize: "1.5rem",
+                        color: "#999",
+                        textDecoration: "line-through",
                       }}
                     >
-                      ✓ {amenity}
-                    </div>
-                  ))}
+                      ${originalPrice}
+                    </span>
+                  )}
+                  <span
+                    style={{
+                      fontSize: "1.2rem",
+                      color: "#666",
+                    }}
+                  >
+                    per night
+                  </span>
                 </div>
-
-                <h3
-                  style={{
-                    fontSize: "1.5rem",
-                    fontWeight: "600",
-                    color: "#333",
-                    marginBottom: "1rem",
-                  }}
-                >
-                  Policies
-                </h3>
-                <ul
-                  style={{
-                    color: "#666",
-                    fontSize: "1rem",
-                    lineHeight: "1.6",
-                    paddingLeft: "1.5rem",
-                  }}
-                >
-                  {hotel.policies.map((policy, index) => (
-                    <li key={index} style={{ marginBottom: "0.5rem" }}>
-                      {policy}
-                    </li>
-                  ))}
-                </ul>
               </div>
 
               <div
                 style={{
-                  background: "#f8f9fa",
-                  padding: "2rem",
-                  borderRadius: "12px",
-                  height: "fit-content",
+                  display: "grid",
+                  gridTemplateColumns: "2fr 1fr",
+                  gap: "3rem",
                 }}
               >
-                <h3
-                  style={{
-                    fontSize: "1.3rem",
-                    fontWeight: "600",
-                    color: "#333",
-                    marginBottom: "1.5rem",
-                  }}
-                >
-                  Booking Information
-                </h3>
+                <div>
+                  <h3
+                    style={{
+                      fontSize: "1.5rem",
+                      fontWeight: "600",
+                      color: "#333",
+                      marginBottom: "1rem",
+                    }}
+                  >
+                    About This Hotel
+                  </h3>
+                  <p
+                    style={{
+                      color: "#666",
+                      fontSize: "1.1rem",
+                      lineHeight: "1.6",
+                      marginBottom: "2rem",
+                    }}
+                  >
+                    {hotel.description}
+                  </p>
 
-                <div style={{ marginBottom: "1.5rem" }}>
-                  <p style={{ color: "#666", marginBottom: "0.5rem" }}>
-                    Check-in: {hotel.checkIn}
-                  </p>
-                  <p style={{ color: "#666", marginBottom: "0.5rem" }}>
-                    Check-out: {hotel.checkOut}
-                  </p>
+                  <h3
+                    style={{
+                      fontSize: "1.5rem",
+                      fontWeight: "600",
+                      color: "#333",
+                      marginBottom: "1rem",
+                    }}
+                  >
+                    Amenities
+                  </h3>
+                  <div
+                    style={{
+                      display: "grid",
+                      gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))",
+                      gap: "0.5rem",
+                      marginBottom: "2rem",
+                    }}
+                  >
+                    {amenities.map((amenity, index) => (
+                      <div
+                        key={index}
+                        style={{
+                          background: "#f8f9fa",
+                          color: "#333",
+                          padding: "0.7rem 1rem",
+                          borderRadius: "8px",
+                          fontSize: "1rem",
+                          border: "1px solid #e9ecef",
+                        }}
+                      >
+                        ✓ {amenity}
+                      </div>
+                    ))}
+                  </div>
+
+                  <h3
+                    style={{
+                      fontSize: "1.5rem",
+                      fontWeight: "600",
+                      color: "#333",
+                      marginBottom: "1rem",
+                    }}
+                  >
+                    Policies
+                  </h3>
+                  <ul
+                    style={{
+                      color: "#666",
+                      fontSize: "1rem",
+                      lineHeight: "1.6",
+                      paddingLeft: "1.5rem",
+                    }}
+                  >
+                    {policies.cancellationPolicy && (
+                      <li style={{ marginBottom: "0.5rem" }}>
+                        Cancellation: {policies.cancellationPolicy}
+                      </li>
+                    )}
+                    {policies.petPolicy && (
+                      <li style={{ marginBottom: "0.5rem" }}>
+                        Pet Policy: {policies.petPolicy}
+                      </li>
+                    )}
+                    {policies.ageRestriction && (
+                      <li style={{ marginBottom: "0.5rem" }}>
+                        Age Restriction: {policies.ageRestriction}
+                      </li>
+                    )}
+                  </ul>
                 </div>
 
-                <button
+                <div
                   style={{
-                    background: "#FF385C",
-                    color: "#fff",
-                    border: "none",
-                    borderRadius: "8px",
-                    padding: "1rem 2rem",
-                    fontWeight: "600",
-                    cursor: "pointer",
-                    fontSize: "1.1rem",
-                    width: "100%",
-                    marginBottom: "1rem",
+                    background: "#f8f9fa",
+                    padding: "2rem",
+                    borderRadius: "12px",
+                    height: "fit-content",
                   }}
                 >
-                  Book Now - ${hotel.price}/night
-                </button>
+                  <h3
+                    style={{
+                      fontSize: "1.3rem",
+                      fontWeight: "600",
+                      color: "#333",
+                      marginBottom: "1.5rem",
+                    }}
+                  >
+                    Booking Information
+                  </h3>
 
-                <button
-                  style={{
-                    background: "transparent",
-                    color: "#FF385C",
-                    border: "2px solid #FF385C",
-                    borderRadius: "8px",
-                    padding: "1rem 2rem",
-                    fontWeight: "600",
-                    cursor: "pointer",
-                    fontSize: "1rem",
-                    width: "100%",
-                  }}
-                >
-                  Add to Wishlist
-                </button>
+                  <div style={{ marginBottom: "1.5rem" }}>
+                    <p style={{ color: "#666", marginBottom: "0.5rem" }}>
+                      Check-in: {policies.checkInTime || "3:00 PM"}
+                    </p>
+                    <p style={{ color: "#666", marginBottom: "0.5rem" }}>
+                      Check-out: {policies.checkOutTime || "11:00 AM"}
+                    </p>
+                  </div>
+
+                  <button
+                    style={{
+                      background: "#0d9488",
+                      color: "#fff",
+                      border: "none",
+                      borderRadius: "8px",
+                      padding: "1rem 2rem",
+                      fontWeight: "600",
+                      cursor: "pointer",
+                      fontSize: "1.1rem",
+                      width: "100%",
+                      marginBottom: "1rem",
+                    }}
+                  >
+                    Book Now - ${price}/night
+                  </button>
+
+                  <button
+                    style={{
+                      background: "transparent",
+                      color: "#0d9488",
+                      border: "2px solid #0d9488",
+                      borderRadius: "8px",
+                      padding: "1rem 2rem",
+                      fontWeight: "600",
+                      cursor: "pointer",
+                      fontSize: "1rem",
+                      width: "100%",
+                    }}
+                  >
+                    Add to Wishlist
+                  </button>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

@@ -143,7 +143,7 @@ const PlaceCards: React.FC = () => {
                   position: "absolute",
                   top: "1rem",
                   right: "1rem",
-                  background: "#FF385C",
+                  background: "#0d9488",
                   color: "#fff",
                   padding: "0.5rem 1rem",
                   borderRadius: "20px",
@@ -191,7 +191,7 @@ const PlaceCards: React.FC = () => {
                     style={{
                       fontSize: "1.1rem",
                       fontWeight: "600",
-                      color: "#FF385C",
+                      color: "#0d9488",
                       margin: "0",
                     }}
                   >
@@ -210,7 +210,7 @@ const PlaceCards: React.FC = () => {
 
                 <button
                   style={{
-                    background: "#FF385C",
+                    background: "#0d9488",
                     color: "#fff",
                     border: "none",
                     borderRadius: "8px",
@@ -221,10 +221,10 @@ const PlaceCards: React.FC = () => {
                     transition: "background 0.2s ease",
                   }}
                   onMouseOver={(e) =>
-                    (e.currentTarget.style.background = "#E6315A")
+                    (e.currentTarget.style.background = "#0f766e")
                   }
                   onMouseOut={(e) =>
-                    (e.currentTarget.style.background = "#FF385C")
+                    (e.currentTarget.style.background = "#0d9488")
                   }
                 >
                   Explore

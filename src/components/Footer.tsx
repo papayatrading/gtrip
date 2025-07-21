@@ -22,7 +22,7 @@ const Footer: React.FC = () => {
           {/* Company Info */}
           <div>
             <h3 style={{
-              color: "#FF385C",
+              color: "#0d9488",
               fontSize: "1.5rem",
               fontWeight: "bold",
               marginBottom: "1rem"
@@ -42,22 +42,22 @@ const Footer: React.FC = () => {
               gap: "1rem"
             }}>
               <a href="#" style={{
-                color: "#FF385C",
+                color: "#0d9488",
                 fontSize: "1.5rem",
                 textDecoration: "none"
               }}>📱</a>
               <a href="#" style={{
-                color: "#FF385C",
+                color: "#0d9488",
                 fontSize: "1.5rem",
                 textDecoration: "none"
               }}>📘</a>
               <a href="#" style={{
-                color: "#FF385C",
+                color: "#0d9488",
                 fontSize: "1.5rem",
                 textDecoration: "none"
               }}>🐦</a>
               <a href="#" style={{
-                color: "#FF385C",
+                color: "#0d9488",
                 fontSize: "1.5rem",
                 textDecoration: "none"
               }}>📷</a>
@@ -93,7 +93,7 @@ const Footer: React.FC = () => {
                     textDecoration: "none",
                     fontSize: "1rem"
                   }}
-                  onMouseOver={(e) => e.currentTarget.style.color = "#FF385C"}
+                  onMouseOver={(e) => e.currentTarget.style.color = "#0d9488"}
                   onMouseOut={(e) => e.currentTarget.style.color = "#ccc"}
                   >
                     {link}
@@ -132,7 +132,7 @@ const Footer: React.FC = () => {
                     textDecoration: "none",
                     fontSize: "1rem"
                   }}
-                  onMouseOver={(e) => e.currentTarget.style.color = "#FF385C"}
+                  onMouseOver={(e) => e.currentTarget.style.color = "#0d9488"}
                   onMouseOut={(e) => e.currentTarget.style.color = "#ccc"}
                   >
                     {link}
@@ -171,7 +171,7 @@ const Footer: React.FC = () => {
                     textDecoration: "none",
                     fontSize: "1rem"
                   }}
-                  onMouseOver={(e) => e.currentTarget.style.color = "#FF385C"}
+                  onMouseOver={(e) => e.currentTarget.style.color = "#0d9488"}
                   onMouseOut={(e) => e.currentTarget.style.color = "#ccc"}
                   >
                     {link}
@@ -218,7 +218,7 @@ const Footer: React.FC = () => {
                 }}
               />
               <button style={{
-                background: "#FF385C",
+                background: "#0d9488",
                 color: "#fff",
                 border: "none",
                 borderRadius: "4px",
@@ -236,12 +236,12 @@ const Footer: React.FC = () => {
             }}>
               <span style={{ color: "#ccc", fontSize: "0.9rem" }}>Download our app:</span>
               <a href="#" style={{
-                color: "#FF385C",
+                color: "#0d9488",
                 textDecoration: "none",
                 fontSize: "0.9rem"
               }}>📱 iOS</a>
               <a href="#" style={{
-                color: "#FF385C",
+                color: "#0d9488",
                 textDecoration: "none",
                 fontSize: "0.9rem"
               }}>🤖 Android</a>
@@ -286,7 +286,7 @@ const Footer: React.FC = () => {
                     textDecoration: "none",
                     fontSize: "0.9rem"
                   }}
-                  onMouseOver={(e) => e.currentTarget.style.color = "#FF385C"}
+                  onMouseOver={(e) => e.currentTarget.style.color = "#0d9488"}
                   onMouseOut={(e) => e.currentTarget.style.color = "#ccc"}
                 >
                   {link}

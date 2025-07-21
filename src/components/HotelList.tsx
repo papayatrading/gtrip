@@ -169,7 +169,7 @@ const HotelList: React.FC = () => {
                     position: "absolute",
                     top: "1rem",
                     right: "1rem",
-                    background: "#FF385C",
+                    background: "#0d9488",
                     color: "#fff",
                     padding: "0.5rem 1rem",
                     borderRadius: "20px",
@@ -274,7 +274,7 @@ const HotelList: React.FC = () => {
                         style={{
                           fontSize: "1.4rem",
                           fontWeight: "700",
-                          color: "#FF385C",
+                          color: "#0d9488",
                         }}
                       >
                         ${hotel.price}
@@ -302,7 +302,7 @@ const HotelList: React.FC = () => {
 
                   <button
                     style={{
-                      background: "#FF385C",
+                      background: "#0d9488",
                       color: "#fff",
                       border: "none",
                       borderRadius: "8px",
@@ -313,10 +313,10 @@ const HotelList: React.FC = () => {
                       transition: "background 0.2s ease",
                     }}
                     onMouseOver={(e) =>
-                      (e.currentTarget.style.background = "#E6315A")
+                      (e.currentTarget.style.background = "#0f766e")
                     }
                     onMouseOut={(e) =>
-                      (e.currentTarget.style.background = "#FF385C")
+                      (e.currentTarget.style.background = "#0d9488")
                     }
                   >
                     View Details

@@ -31,7 +31,7 @@ export default function Home() {
             left: 0,
             right: 0,
             bottom: 0,
-            backgroundColor: "rgba(0, 0, 0, 0.4)",
+            background: "linear-gradient(135deg, rgba(13, 148, 136, 0.8) 0%, rgba(17, 94, 89, 0.9) 100%)",
             zIndex: 1,
           }}
         ></div>

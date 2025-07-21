@@ -57,7 +57,7 @@ const AvailabilitySearch: React.FC<AvailabilitySearchProps> = ({
       borderRadius: "8px",
       padding: sizeValues.padding,
       boxShadow: "0 8px 32px rgba(0, 0, 0, 0.2)",
-      border: "3px solid #FF385C"
+      border: "3px solid #0d9488"
     }}>
       <form style={{ 
         background: "#f8f8f8", 
@@ -77,7 +77,7 @@ const AvailabilitySearch: React.FC<AvailabilitySearchProps> = ({
           justifyContent: "center",
           minHeight: sizeValues.minHeight
         }}>
-          <label style={{ fontSize: "0.75rem", color: "#FF385C", fontWeight: "600", marginBottom: "0.25rem" }}>
+          <label style={{ fontSize: "0.75rem", color: "#0d9488", fontWeight: "600", marginBottom: "0.25rem" }}>
             {destinationLabel}
           </label>
           <input
@@ -104,7 +104,7 @@ const AvailabilitySearch: React.FC<AvailabilitySearchProps> = ({
               justifyContent: "center",
               minHeight: sizeValues.minHeight
             }}>
-              <label style={{ fontSize: "0.75rem", color: "#FF385C", fontWeight: "600", marginBottom: "0.25rem" }}>
+              <label style={{ fontSize: "0.75rem", color: "#0d9488", fontWeight: "600", marginBottom: "0.25rem" }}>
                 Check-in date
               </label>
               <input
@@ -128,7 +128,7 @@ const AvailabilitySearch: React.FC<AvailabilitySearchProps> = ({
               justifyContent: "center",
               minHeight: sizeValues.minHeight
             }}>
-              <label style={{ fontSize: "0.75rem", color: "#FF385C", fontWeight: "600", marginBottom: "0.25rem" }}>
+              <label style={{ fontSize: "0.75rem", color: "#0d9488", fontWeight: "600", marginBottom: "0.25rem" }}>
                 Check-out date
               </label>
               <input
@@ -156,7 +156,7 @@ const AvailabilitySearch: React.FC<AvailabilitySearchProps> = ({
             minHeight: sizeValues.minHeight,
             cursor: "pointer"
           }}>
-            <label style={{ fontSize: "0.75rem", color: "#FF385C", fontWeight: "600", marginBottom: "0.25rem" }}>
+            <label style={{ fontSize: "0.75rem", color: "#0d9488", fontWeight: "600", marginBottom: "0.25rem" }}>
               {showRoomCount ? "Guests and rooms" : "Guests"}
             </label>
             <span style={{ fontSize: sizeValues.fontSize, color: "#333", fontWeight: "500" }}>
@@ -167,7 +167,7 @@ const AvailabilitySearch: React.FC<AvailabilitySearchProps> = ({
         <button
           type="submit"
           style={{
-            background: "#FF385C",
+            background: "#0d9488",
             color: "#fff",
             border: "none",
             padding: sizeValues.buttonPadding,

@@ -208,7 +208,7 @@ const WalkingTourPage: React.FC = () => {
     <div style={{ backgroundColor: "#f8f9fa", minHeight: "100vh" }}>
       <div
         style={{
-          background: "linear-gradient(135deg, #FF0000 0%, #DC143C 100%)",
+          background: "linear-gradient(135deg, #0d9488 0%, #115e59 100%)",
           color: "#fff",
           padding: "4rem 2rem 2rem",
           textAlign: "center",

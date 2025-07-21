@@ -107,44 +107,24 @@ const ActivitiesPage: React.FC = () => {
   };
 
   return (
-    <div style={{ backgroundColor: "#f8f9fa", minHeight: "100vh" }}>
-      <div
-        style={{
-          background: "#FF385C",
-          color: "#fff",
-          padding: "4rem 2rem 2rem 2rem",
-          textAlign: "center",
-        }}
-      >
-        <h1
-          style={{
-            fontSize: "3rem",
-            fontWeight: "700",
-            marginBottom: "1rem",
-          }}
-        >
-          Entertainment, excitement & more
-        </h1>
-        <p
-          style={{
-            fontSize: "1.3rem",
-            maxWidth: "600px",
-            margin: "0 auto",
-            opacity: "0.95",
-          }}
-        >
-          Discover thrilling experiences and unforgettable adventures around the
-          world
-        </p>
+    <div className="min-h-screen bg-gray-50">
+      {/* Modern Teal Hero Section */}
+      <div className="relative bg-gradient-to-br from-teal-600 via-teal-700 to-teal-800 text-white">
+        <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 text-center">
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 tracking-tight">
+            Entertainment, excitement & more
+          </h1>
+          <p className="text-xl md:text-2xl text-teal-100 max-w-3xl mx-auto leading-relaxed">
+            Discover thrilling experiences and unforgettable adventures around the world
+          </p>
+          {/* Decorative elements */}
+          <div className="absolute top-10 left-10 w-32 h-32 bg-teal-500/20 rounded-full blur-xl"></div>
+          <div className="absolute bottom-10 right-10 w-24 h-24 bg-teal-400/20 rounded-full blur-xl"></div>
+        </div>
       </div>
 
-      <div
-        style={{
-          maxWidth: "1200px",
-          margin: "0 auto",
-          padding: "2rem",
-        }}
-      >
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <AvailabilitySearch
           destinationLabel="Destination:"
           showRoomCount={false}
@@ -159,184 +139,70 @@ const ActivitiesPage: React.FC = () => {
           padding: "4rem 2rem",
         }}
       >
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(auto-fit, minmax(380px, 1fr))",
-            gap: "2rem",
-          }}
-        >
+        {/* Modern Activities Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-12">
           {activities.map((activity) => (
             <Link
               key={activity.id}
               href={`/activities/${activity.id}`}
-              style={{ textDecoration: "none", color: "inherit" }}
+              className="group block"
             >
-              <div
-                style={{
-                  background: "#fff",
-                  borderRadius: "12px",
-                  overflow: "hidden",
-                  boxShadow: "0 4px 20px rgba(0,0,0,0.1)",
-                  transition: "transform 0.3s ease, box-shadow 0.3s ease",
-                  cursor: "pointer",
-                  border: "1px solid #e0e0e0",
-                }}
-                onMouseOver={(e) => {
-                  e.currentTarget.style.transform = "translateY(-5px)";
-                  e.currentTarget.style.boxShadow =
-                    "0 8px 30px rgba(0,0,0,0.15)";
-                }}
-                onMouseOut={(e) => {
-                  e.currentTarget.style.transform = "translateY(0)";
-                  e.currentTarget.style.boxShadow =
-                    "0 4px 20px rgba(0,0,0,0.1)";
-                }}
-              >
-                <div
-                  style={{
-                    position: "relative",
-                    height: "240px",
-                    overflow: "hidden",
-                  }}
-                >
+              <div className="bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden group-hover:scale-105">
+                <div className="relative h-64 overflow-hidden">
                   <Image
                     src={activity.image}
                     alt={activity.name}
                     fill
-                    style={{ objectFit: "cover" }}
+                    className="object-cover group-hover:scale-110 transition-transform duration-300"
                   />
-                  <div
-                    style={{
-                      position: "absolute",
-                      top: "1rem",
-                      right: "1rem",
-                      background: "#FF385C",
-                      color: "#fff",
-                      padding: "0.5rem 1rem",
-                      borderRadius: "20px",
-                      fontSize: "0.9rem",
-                      fontWeight: "600",
-                    }}
-                  >
+                  {/* Rating Badge */}
+                  <div className="absolute top-4 right-4 bg-teal-600 text-white px-3 py-1.5 rounded-full text-sm font-semibold shadow-lg">
                     ★ {activity.rating}
                   </div>
-                  <div
-                    style={{
-                      position: "absolute",
-                      top: "1rem",
-                      left: "1rem",
-                      background: getDifficultyColor(activity.difficulty),
-                      color: "#fff",
-                      padding: "0.4rem 0.8rem",
-                      borderRadius: "15px",
-                      fontSize: "0.8rem",
-                      fontWeight: "600",
-                    }}
+                  {/* Difficulty Badge */}
+                  <div 
+                    className="absolute top-4 left-4 text-white px-3 py-1.5 rounded-full text-sm font-semibold shadow-lg"
+                    style={{ backgroundColor: getDifficultyColor(activity.difficulty) }}
                   >
                     {activity.difficulty}
                   </div>
-                  <div
-                    style={{
-                      position: "absolute",
-                      bottom: "1rem",
-                      left: "1rem",
-                      background: "rgba(0,0,0,0.7)",
-                      color: "#fff",
-                      padding: "0.4rem 0.8rem",
-                      borderRadius: "15px",
-                      fontSize: "0.8rem",
-                      fontWeight: "500",
-                    }}
-                  >
+                  {/* Duration Badge */}
+                  <div className="absolute bottom-4 left-4 bg-black/70 text-white px-3 py-1.5 rounded-full text-sm font-medium backdrop-blur-sm">
                     {activity.duration}
                   </div>
                 </div>
 
-                <div style={{ padding: "1.5rem" }}>
-                  <h3
-                    style={{
-                      fontSize: "1.4rem",
-                      fontWeight: "600",
-                      color: "#333",
-                      marginBottom: "0.5rem",
-                    }}
-                  >
+                <div className="p-6">
+                  <h3 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-teal-700 transition-colors duration-200">
                     {activity.name}
                   </h3>
 
-                  <p
-                    style={{
-                      color: "#999",
-                      fontSize: "0.95rem",
-                      marginBottom: "0.5rem",
-                    }}
-                  >
-                    📍 {activity.location}
+                  <p className="text-gray-500 text-sm mb-2 flex items-center">
+                    <svg className="w-4 h-4 mr-1.5 text-teal-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                    </svg>
+                    {activity.location}
                   </p>
 
-                  <p
-                    style={{
-                      color: "#666",
-                      fontSize: "0.95rem",
-                      marginBottom: "1rem",
-                      lineHeight: "1.5",
-                    }}
-                  >
+                  <p className="text-gray-600 text-sm mb-4 line-clamp-2 leading-relaxed">
                     {activity.description}
                   </p>
 
-                  <div
-                    style={{
-                      display: "flex",
-                      justifyContent: "space-between",
-                      alignItems: "center",
-                      marginTop: "1rem",
-                    }}
-                  >
+                  <div className="flex justify-between items-center pt-4 border-t border-gray-100">
                     <div>
-                      <div
-                        style={{
-                          fontSize: "1.4rem",
-                          fontWeight: "700",
-                          color: "#FF385C",
-                          marginBottom: "0.25rem",
-                        }}
-                      >
+                      <div className="text-2xl font-bold text-teal-600">
                         ${activity.price}
                       </div>
-                      <p
-                        style={{
-                          fontSize: "0.85rem",
-                          color: "#999",
-                          margin: 0,
-                        }}
-                      >
+                      <div className="text-xs text-gray-500 flex items-center">
+                        <svg className="w-3 h-3 mr-1 text-yellow-400" fill="currentColor" viewBox="0 0 24 24">
+                          <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                        </svg>
                         {activity.reviews} reviews
-                      </p>
+                      </div>
                     </div>
-
-                    <button
-                      style={{
-                        background: "#FF385C",
-                        color: "#fff",
-                        border: "none",
-                        borderRadius: "8px",
-                        padding: "0.7rem 1.5rem",
-                        fontWeight: "600",
-                        cursor: "pointer",
-                        fontSize: "0.95rem",
-                        transition: "background 0.2s ease",
-                      }}
-                      onMouseOver={(e) =>
-                        (e.currentTarget.style.background = "#E6315A")
-                      }
-                      onMouseOut={(e) =>
-                        (e.currentTarget.style.background = "#FF385C")
-                      }
-                    >
+                    <div className="bg-teal-600 hover:bg-teal-700 text-white px-4 py-2 rounded-lg font-semibold transition-all duration-200 shadow-lg hover:shadow-xl text-sm">
                       Book Now
-                    </button>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -344,35 +210,13 @@ const ActivitiesPage: React.FC = () => {
           ))}
         </div>
 
-        {/* Customer Reviews Section */}
-        <div
-          style={{
-            background: "#fff",
-            borderRadius: "12px",
-            padding: "2rem",
-            marginTop: "3rem",
-            boxShadow: "0 4px 20px rgba(0,0,0,0.1)",
-          }}
-        >
-          <h2
-            style={{
-              fontSize: "2rem",
-              fontWeight: "700",
-              color: "#333",
-              marginBottom: "2rem",
-              textAlign: "center",
-            }}
-          >
+        {/* Modern Reviews Section */}
+        <div className="bg-white rounded-2xl shadow-lg p-8 mt-12">
+          <h2 className="text-3xl font-bold text-gray-900 mb-8 text-center">
             Activity Reviews
           </h2>
 
-          <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
-              gap: "2rem",
-            }}
-          >
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {[
               {
                 name: "David Martinez",
@@ -404,125 +248,47 @@ const ActivitiesPage: React.FC = () => {
             ].map((review, index) => (
               <div
                 key={index}
-                style={{
-                  background: "#f8f9fa",
-                  borderRadius: "12px",
-                  padding: "1.5rem",
-                  border: "1px solid #e0e0e0",
-                }}
+                className="bg-gray-50 rounded-xl p-6 border border-gray-200 hover:shadow-lg transition-shadow duration-200"
               >
-                <div
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    marginBottom: "1rem",
-                  }}
-                >
-                  <div
-                    style={{
-                      width: "50px",
-                      height: "50px",
-                      borderRadius: "50%",
-                      background: "linear-gradient(135deg, #FF385C, #E6315A)",
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      fontSize: "1.5rem",
-                      marginRight: "1rem",
-                    }}
-                  >
+                <div className="flex items-center mb-4">
+                  <div className="w-12 h-12 bg-gradient-to-br from-teal-600 to-teal-700 rounded-full flex items-center justify-center text-xl mr-4">
                     {review.avatar}
                   </div>
                   <div>
-                    <h4
-                      style={{
-                        fontSize: "1.1rem",
-                        fontWeight: "600",
-                        color: "#333",
-                        margin: "0 0 0.25rem 0",
-                      }}
-                    >
+                    <h4 className="text-lg font-semibold text-gray-900">
                       {review.name}
                     </h4>
-                    <p
-                      style={{
-                        fontSize: "0.9rem",
-                        color: "#666",
-                        margin: 0,
-                      }}
-                    >
+                    <p className="text-sm text-gray-600">
                       {review.location}
                     </p>
                   </div>
                 </div>
 
-                <div
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    marginBottom: "1rem",
-                  }}
-                >
+                <div className="flex items-center mb-4">
                   {[...Array(5)].map((_, i) => (
                     <span
                       key={i}
-                      style={{
-                        color: i < review.rating ? "#FFD700" : "#e0e0e0",
-                        fontSize: "1.2rem",
-                        marginRight: "0.25rem",
-                      }}
+                      className={`text-lg mr-1 ${
+                        i < review.rating ? "text-yellow-400" : "text-gray-300"
+                      }`}
                     >
                       ★
                     </span>
                   ))}
-                  <span
-                    style={{
-                      fontSize: "0.9rem",
-                      color: "#666",
-                      marginLeft: "0.5rem",
-                    }}
-                  >
+                  <span className="text-sm text-gray-500 ml-2">
                     {review.date}
                   </span>
                 </div>
 
-                <p
-                  style={{
-                    fontSize: "1rem",
-                    color: "#555",
-                    lineHeight: "1.5",
-                    margin: 0,
-                  }}
-                >
+                <p className="text-gray-700 leading-relaxed">
                   "{review.review}"
                 </p>
               </div>
             ))}
           </div>
 
-          <div
-            style={{
-              textAlign: "center",
-              marginTop: "2rem",
-            }}
-          >
-            <button
-              style={{
-                background: "#FF385C",
-                color: "#fff",
-                border: "none",
-                borderRadius: "8px",
-                padding: "0.75rem 2rem",
-                fontSize: "1rem",
-                fontWeight: "600",
-                cursor: "pointer",
-                transition: "background 0.2s ease",
-              }}
-              onMouseOver={(e) =>
-                (e.currentTarget.style.background = "#E6315A")
-              }
-              onMouseOut={(e) => (e.currentTarget.style.background = "#FF385C")}
-            >
+          <div className="text-center mt-8">
+            <button className="bg-teal-600 hover:bg-teal-700 text-white px-8 py-3 rounded-lg font-semibold transition-colors duration-200 shadow-lg hover:shadow-xl">
               Read More Reviews
             </button>
           </div>

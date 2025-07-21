@@ -152,44 +152,24 @@ const RestaurantsPage: React.FC = () => {
   };
 
   return (
-    <div style={{ backgroundColor: "#f8f9fa", minHeight: "100vh" }}>
-      <div
-        style={{
-          background: "#FF385C",
-          color: "#fff",
-          padding: "4rem 2rem 2rem 2rem",
-          textAlign: "center",
-        }}
-      >
-        <h1
-          style={{
-            fontSize: "3rem",
-            fontWeight: "700",
-            marginBottom: "1rem",
-          }}
-        >
-          Restaurants & Dining
-        </h1>
-        <p
-          style={{
-            fontSize: "1.3rem",
-            maxWidth: "600px",
-            margin: "0 auto",
-            opacity: "0.95",
-          }}
-        >
-          Discover exceptional dining experiences and culinary delights around
-          the world
-        </p>
+    <div className="min-h-screen bg-gray-50">
+      {/* Modern Teal Hero Section */}
+      <div className="relative bg-gradient-to-br from-teal-600 via-teal-700 to-teal-800 text-white">
+        <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 text-center">
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 tracking-tight">
+            Restaurants & Dining
+          </h1>
+          <p className="text-xl md:text-2xl text-teal-100 max-w-3xl mx-auto leading-relaxed">
+            Discover exceptional dining experiences and culinary delights around the world
+          </p>
+          {/* Decorative elements */}
+          <div className="absolute top-10 left-10 w-32 h-32 bg-teal-500/20 rounded-full blur-xl"></div>
+          <div className="absolute bottom-10 right-10 w-24 h-24 bg-teal-400/20 rounded-full blur-xl"></div>
+        </div>
       </div>
 
-      <div
-        style={{
-          maxWidth: "1200px",
-          margin: "0 auto",
-          padding: "2rem",
-        }}
-      >
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <AvailabilitySearch
           destinationLabel="Restaurant or Destination:"
           showRoomCount={false}
